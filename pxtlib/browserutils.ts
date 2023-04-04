@@ -136,16 +136,18 @@ namespace pxt.BrowserUtils {
     export let isWinRT = () => false;
 
     export function isLocalHost(ignoreFlags?: boolean): boolean {
-        try {
-            return typeof window !== "undefined"
-                && /^http:\/\/(localhost|127\.0\.0\.1):\d+\//.test(window.location.href)
-                && (ignoreFlags || !/nolocalhost=1/.test(window.location.href))
-                && !(pxt?.webConfig?.isStatic);
-        } catch (e) { return false; }
+        // try {
+        //     return typeof window !== "undefined"
+        //         && /^http:\/\/(localhost|127\.0\.0\.1):\d+\//.test(window.location.href)
+        //         && (ignoreFlags || !/nolocalhost=1/.test(window.location.href))
+        //         && !(pxt?.webConfig?.isStatic);
+        // } catch (e) { return false; }
+        return true;
     }
 
     export function isLocalHostDev(): boolean {
-        return isLocalHost() && !isElectron();
+        // return isLocalHost() && !isElectron();
+        return true;
     }
 
     export function hasPointerEvents(): boolean {
