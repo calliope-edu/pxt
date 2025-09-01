@@ -851,6 +851,18 @@ namespace pxsim {
                 msg.breakOnStart = false;
             }
             this.postMessageCore(frame, msg);
+            // send explicit language hint to the simulator iframe so it can pick
+            // the correct translations for simulator-only UI strings.
+            try {
+                const lang = this.options?.userLanguage;
+                if (lang) {
+                    const langMsg: any = { type: 'pxt-set-language', lang: lang, source: MESSAGE_SOURCE };
+                    this.postMessageCore(frame, langMsg);
+                }
+            } catch (e) {
+                // don't break simulator startup on errors here
+                console.error('simdriver: failed to post language to simulator frame', e);
+            }
             if (this.traceInterval) this.setTraceInterval(this.traceInterval);
             this.applyAspectRatioToFrame(frame);
             this.setFrameState(frame);
@@ -1002,7 +1014,7 @@ namespace pxsim {
 
         public variablesAsync(id: number, fields?: string[], includeAll = false): Promise<VariablesMessage> {
             return this.postDebuggerMessageAsync("variables", { variablesReference: id, fields: fields, includeAll } as DebugProtocol.VariablesArguments, this.debuggingFrame)
-                .then(msg => msg as VariablesMessage, e => undefined)
+                .then((msg) => msg as VariablesMessage, (e): VariablesMessage => undefined)
         }
 
         private handleSimulatorCommand(msg: pxsim.SimulatorCommandMessage) {
