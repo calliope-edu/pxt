@@ -1922,7 +1922,7 @@ export class ProjectView
             pxt.BrowserUtils.changeHash("#editor", true);
             // Clear the focus.
             document.getElementById("root").focus();
-            /* await */ cmds.maybeReconnectAsync(false, true);
+            /** await  **/ pxt.Util.delay(500).then(() => cmds.maybeReconnectAsync(false, true));
             this.editorLoaded();
         }
     }
