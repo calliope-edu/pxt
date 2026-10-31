@@ -244,6 +244,10 @@ export function bindEditorMessages(getEditorAsync: () => Promise<IProjectView>) 
                                 return Promise.resolve()
                                     .then(() => projectView.showThemePicker());
                             }
+                            case "showextensions": {
+                                return Promise.resolve()
+                                    .then(() => projectView.showPackageDialog());
+                            }
                             case "togglehighcontrast": {
                                 return Promise.resolve()
                                     .then(() => projectView.toggleHighContrast());

@@ -2753,7 +2753,8 @@ export class ProjectView
 
     openProjectByHeaderIdAsync(headerId: string) {
         const header = workspace.getHeader(headerId);
-        return this.loadHeaderAsync(header);
+        // keep the current editor state (e.g. toolbox filters set by the host via workspacesync)
+        return this.loadHeaderAsync(header, this.state.editorState);
     }
 
     initDragAndDrop() {
